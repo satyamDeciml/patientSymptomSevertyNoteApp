@@ -114,6 +114,7 @@ class _SevertyPageState extends State<SevertyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+     
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentNav,
           type: BottomNavigationBarType.fixed,
@@ -125,6 +126,7 @@ class _SevertyPageState extends State<SevertyPage> {
           },
         ),
         body: SingleChildScrollView(
+             
           child: Column(
             children: [
               customAppbar(),
@@ -135,10 +137,13 @@ class _SevertyPageState extends State<SevertyPage> {
               if (index == 1) severtyCard(_character1),
               if (index == 2) severtyCard(_character2),
               medicationCommentsCard(),
+         
             ],
           ),
         ),
-        floatingActionButton: bottomButtonsRow());
+        floatingActionButton: bottomButtonsRow(),
+        resizeToAvoidBottomInset: true,
+        );
   }
 
   Widget moreAboutHeading() {
@@ -251,10 +256,12 @@ class _SevertyPageState extends State<SevertyPage> {
                     new SymptomModel(userId: 123, symptoms: liOfSymp);
                 s.toJson();
                 print(s.toJson());
-                var code = await apiCall(s);
-                print(code);
+                // var code = await apiCall(s);
+                // print(code);
 
-                Fluttertoast.showToast(msg: "updated with $code status");
+                // Fluttertoast.showToast(msg: "updated with $code status");
+
+                 Fluttertoast.showToast(msg: "Working on Emulator only(for localhost)");
                 //Navigator.pop(context);
                 // fun(s);
               }
@@ -309,9 +316,12 @@ class _SevertyPageState extends State<SevertyPage> {
                 ),
                 child: Container(
                     child: TextField(
+                        
                   autocorrect: true,
                   decoration: InputDecoration(
                     hintText: 'Comment',
+                   
+                  
                     hintStyle: TextStyle(color: Colors.grey),
                     filled: true,
                     fillColor: Colors.white70,

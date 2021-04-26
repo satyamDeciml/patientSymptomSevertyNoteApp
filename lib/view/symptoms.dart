@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zealth_symptomapp/view/severty.dart';
 
-
 bool boolVar = true;
 
 class SymptomsPage extends StatefulWidget {
@@ -55,16 +54,16 @@ class _SymptomsPageState extends State<SymptomsPage> {
   }
 
   Map<String, Widget> map = {
-    'icon': Padding(
-      padding: const EdgeInsets.only(right: 16.0),
-      child: SizedBox(
-          width: 20, height: 20, child: Image.asset("assets/Fill (1).png")
-          // .alignCenter
-          // .ripple(() {}, borderRadius: BorderRadius.circular(13)
-          // )
-          ),
-    ),
-    'hintext': Text("Search symptoms")
+    // 'icon': Padding(
+    //   padding: const EdgeInsets.only(right: 16.0),
+    //   child: SizedBox(
+    //       width: 20, height: 20, child: Image.asset("assets/Fill (1).png")
+    //       // .alignCenter
+    //       // .ripple(() {}, borderRadius: BorderRadius.circular(13)
+    //       // )
+    //       ),
+    // ),
+    // 'hintext': Text("Search symptoms")
   };
   List listOfWid = <Widget>[];
 
@@ -256,30 +255,61 @@ class _SymptomsPageState extends State<SymptomsPage> {
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                     border: InputBorder.none,
-                    hintText: "Search Symptoms",
+                    hintText: listOfWid.length == 0 ? "Search Symptoms" : null,
+                    //enabled:,
+                    
                     // prefix: ,
                     // suffixText: "fdf",
                     // prefix: ListView(
                     //   children:  tempArr,
                     // ),
+                    //     'icon': Padding(
 
                     //prefixText: 'fdfd',
 
                     hasFloatingPlaceholder: true,
 
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(13.0),
-                      child: Row(
-                        children: listOfWid,
-                      ),
-                    ),
+                    // listOfWid.length==0?Padding(
+                    //                   padding:
+                    //                       const EdgeInsets.only(right: 16.0),
+                    //                   child: SizedBox(
+                    //                       width: 20,
+                    //                       height: 20,
+                    //                       child:
+                    //                           Image.asset("assets/Fill (1).png")
+                    //                       // .alignCenter
+                    //                       // .ripple(() {}, borderRadius: BorderRadius.circular(13)
+                    //                       // )
+                    //                       ),
+                    //                 ):
+                    //                 listOfWid,
+
+                    prefixIcon: listOfWid.length == 0
+                        ? Padding(
+                            padding: const EdgeInsets.all( 16.0),
+                            child: SizedBox(
+                                width: 20,
+                                height: 20,
+                                child: Image.asset("assets/Fill (1).png")
+                                // .alignCenter
+                                // .ripple(() {}, borderRadius: BorderRadius.circular(13)
+                                // )
+                                ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.all(13.0),
+                            child: Row(
+                              children: listOfWid,
+                            ),
+                          ),
                     // hintStyle: TextStyle.body.subTitleColor,
+                    
                     suffixIcon: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: InkWell(
                         onTap: () {
                           if (checkStatus) {
-                           print(tmpArray);
+                            print(tmpArray);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -392,8 +422,11 @@ class _SymptomsPageState extends State<SymptomsPage> {
                             if (_formKey.currentState.validate() != false) {
                               setState(() {
                                 _isChecked1 = isChecked;
+                                     if(_isChecked1==true||_isChecked2==true){
+                                   checkStatus = true;
+                                }  
                                 if (_isChecked1 == true) {
-                                  checkStatus = true;
+                                  // checkStatus = true;
                                   map.remove('icon');
                                   map.remove('hintext');
                                   tmpArray.add('Fatigue');
@@ -428,29 +461,35 @@ class _SymptomsPageState extends State<SymptomsPage> {
                                   );
                                   print(listOfWid);
                                 }
+                                if (_isChecked1 == false &&
+                                    _isChecked2 == false) {
+                                  checkStatus = false;
+                                }
+
                                 if (_isChecked1 == false) {
                                   tmpArray.remove('Fatigue');
                                   map.remove('Fatigue');
+                                  // checkStatus = false;
 
-                                  if (map.isEmpty) {
-                                    checkStatus = false;
+                                  // if (map.isEmpty) {
+                                  //   checkStatus = false;
 
-                                    map['icon'] = Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 16.0),
-                                      child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child:
-                                              Image.asset("assets/Fill (1).png")
-                                          // .alignCenter
-                                          // .ripple(() {}, borderRadius: BorderRadius.circular(13)
-                                          // )
-                                          ),
-                                    );
+                                  //   map['icon'] = Padding(
+                                  //     padding:
+                                  //         const EdgeInsets.only(right: 16.0),
+                                  //     child: SizedBox(
+                                  //         width: 20,
+                                  //         height: 20,
+                                  //         child:
+                                  //             Image.asset("assets/Fill (1).png")
+                                  //         // .alignCenter
+                                  //         // .ripple(() {}, borderRadius: BorderRadius.circular(13)
+                                  //         // )
+                                  //         ),
+                                  //   );
 
-                                    map['hintext'] = Text("Search symptoms");
-                                  }
+                                  //   map['hintext'] = Text("Search symptoms");
+                                  // }
                                   print(listOfWid);
                                 }
 
@@ -517,8 +556,12 @@ class _SymptomsPageState extends State<SymptomsPage> {
                               setState(() {
                                 _isChecked2 = isChecked;
 
+                                if(_isChecked1==true||_isChecked2==true){
+                                   checkStatus = true;
+                                }
+
                                 if (_isChecked2 == true) {
-                                  checkStatus = true;
+                                 
                                   map.remove('icon');
                                   map.remove('hintext');
 
@@ -556,29 +599,35 @@ class _SymptomsPageState extends State<SymptomsPage> {
 
                                   //listOfWid.add(map['Vomiting']);
                                 }
+
+                                  if (_isChecked1 == false &&
+                                    _isChecked2 == false) {
+                                  checkStatus = false;
+                                }
                                 if (_isChecked2 == false) {
                                   tmpArray.remove('Vomiting');
                                   map.remove('Vomiting');
                                   print(listOfWid);
+                                  // checkStatus = false;
 
-                                  if (map.isEmpty) {
-                                    checkStatus = false;
-                                    map['icon'] = Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 16.0),
-                                      child: SizedBox(
-                                          width: 20,
-                                          height: 20,
-                                          child:
-                                              Image.asset("assets/Fill (1).png")
-                                          // .alignCenter
-                                          // .ripple(() {}, borderRadius: BorderRadius.circular(13)
-                                          // )
-                                          ),
-                                    );
+                                  // if (map.isEmpty) {
+                                  //   checkStatus = false;
+                                  //   map['icon'] = Padding(
+                                  //     padding:
+                                  //         const EdgeInsets.only(right: 16.0),
+                                  //     child: SizedBox(
+                                  //         width: 20,
+                                  //         height: 20,
+                                  //         child:
+                                  //             Image.asset("assets/Fill (1).png")
+                                  //         // .alignCenter
+                                  //         // .ripple(() {}, borderRadius: BorderRadius.circular(13)
+                                  //         // )
+                                  //         ),
+                                  //   );
 
-                                    map['hintext'] = Text("Search symptoms");
-                                  }
+                                  //   map['hintext'] = Text("Search symptoms");
+                                  // }
 
                                   //listOfWid.add(map['Vomiting']);
                                 }
